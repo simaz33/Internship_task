@@ -6,6 +6,7 @@ url = 'https://api.github.com/user'
 token = open('token', 'r').read().strip() if path.exists('token') else ''
 
 def auth_request(url, token):
+    # A generated token is used for authorization. File named 'token' contains the token
     headers = {'Authorization': 'token ' + token}
 
     return requests.get(url, headers=headers)

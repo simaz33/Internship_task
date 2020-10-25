@@ -20,7 +20,7 @@ def get_emoji_image(emoji_name):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print('No image specified')
+        print('No image specified. Usage task3.py <image_name>')
         exit()
 
     get_emoji_image(sys.argv[1].lower())

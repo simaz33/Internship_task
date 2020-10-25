@@ -26,7 +26,8 @@ def get_methods(response_json, all_methods, all_no_param, all_with_param):
         
         else:
             all_no_param.append(value)
-            
+           
+            # If authorized request did not return status 200 then a regular request is tried
             further_response = task2.auth_request(value, token)
             if further_response.status_code != 200:
                 further_response = requests.get(value)

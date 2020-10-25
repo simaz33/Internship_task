@@ -1,8 +1,8 @@
 import requests
 import sys
-from os import path
 import task2
-from git import Repo
+from os import path
+from git import Repo # git module was used for cloning repositories into local system
 
 token = task2.token
 
