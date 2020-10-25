@@ -1,18 +1,17 @@
 import requests
 import sys
 
-url = 'https://api.github.com/'
-username = 'simaz33'
+url = 'https://api.github.com/user'
 token = open('token', 'r').read().strip()
 
 def auth_request(url):
-    global username, token
+    global token 
 
-    if len(sys.argv) > 1:
-        token = sys.argv[1]
+    headers = {'Authorization': 'token ' + token}
 
-    return requests.get(url, auth=(username, token))
+    return requests.get(url, headers=headers)
 
 if __name__ == '__main__':
-    if auth_request(url).status_code == 200:
-        print(f'Request returned response with status - 200 for user {username} and token {token}')
+    status_code = auth_request(url).status_code
+
+    print(f'Request returned response with status - {status_code} for token {token}')

@@ -19,7 +19,7 @@ def get_emoji_image(emoji_name):
             image.write(chunk)
 
 if __name__ == '__main__':
-    if len(sys.argv) < 1:
+    if len(sys.argv) < 2:
         print('No image specified')
         exit()
 
