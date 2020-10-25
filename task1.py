@@ -2,6 +2,8 @@ import requests
 import sys
 import task2 # Import second task for authorized requests option
 
+token = task2.token
+
 def get_methods(response_json, all_methods, all_no_param, all_with_param):
     for key in response_json:
         value = None
@@ -19,15 +21,17 @@ def get_methods(response_json, all_methods, all_no_param, all_with_param):
         except:
             continue
 
-        if '{' in value:
+        if '{' in value and '}' in value:
             all_with_param.append(value)
         
         else:
             all_no_param.append(value)
-
-            further_response = task2.auth_request(value)
-                       
-            if further_response.ok:
+            
+            further_response = task2.auth_request(value, token)
+            if further_response.status_code != 200:
+                further_response = requests.get(value)
+            
+            if further_response.status_code == 200:
                 try: 
                     get_methods(further_response.json(), all_methods, all_no_param, all_with_param)
                 
@@ -38,7 +42,10 @@ if __name__ == "__main__":
 
     root_url = 'https://api.github.com'
 
-    response = task2.auth_request(root_url)
+    response = task2.auth_request(root_url, token)
+    
+    if response.status_code != 200:
+        response = requests.get(root_url)
 
     if response.status_code != 200:
         print("The provided url is not valid or another error occured")

@@ -4,6 +4,8 @@ from os import path
 import task2
 from git import Repo
 
+token = task2.token
+
 def clone_repo(repo_url, repo_name):
     if not path.exists(repo_name):
         Repo.clone_from(repo_url, repo_name)
@@ -16,7 +18,7 @@ def list_user_repos(username):
 
     while True:
         repo_url = f'https://api.github.com/users/{username}/repos?page={page}'
-        repos_in_page = task2.auth_request(repo_url).json()
+        repos_in_page = task2.auth_request(repo_url, token).json()
         
         if repos_in_page:
             for repo in repos_in_page:
@@ -49,7 +51,7 @@ if __name__ == '__main__':
 
         repo_url = f'https://github.com/{username}/{repo_name}'
 
-    if task2.auth_request(repo_url).status_code == 200:
+    if task2.auth_request(repo_url, token).status_code == 200:
         if repo_url and repo_name:
             clone_repo(repo_url, repo_name)
         else:

@@ -23,4 +23,5 @@ if __name__ == '__main__':
         print('No image specified')
         exit()
 
-    get_emoji_image(sys.argv[1])
+    get_emoji_image(sys.argv[1].lower())
+
